@@ -9,6 +9,12 @@
 #import "FPAPIClient.h"
 #import "FPConfig.h"
 
+// MFZ DEV: alias classes
+@implementation AFHTTPRequestOperationManager
+@end
+@implementation AFHTTPRequestOperation
+@end
+
 @implementation FPAPIClient
 
 + (instancetype)sharedClient
@@ -50,16 +56,18 @@
         return nil;
     }
 
-    AFHTTPRequestOperation *operation;
-
-    operation = [[FPAPIClient sharedClient] HTTPRequestOperationWithRequest:serializedRequest
-                                                                    success:success
-                                                                    failure:failure];
-
-    NSOperationQueue *actualOperationQueue = operationQueue ? operationQueue : self.operationQueue;
-
-    [actualOperationQueue addOperation:operation];
-
+    // MFZ DEV: 'HTTPRequestOperationWithRequest:' has been removed, now need to call the request directly.
+    __block AFHTTPRequestOperation * _Nonnull operation = (AFHTTPRequestOperation *)[super dataTaskWithRequest:mRequest
+                                                                               uploadProgress:nil
+                                                                             downloadProgress:nil
+                                                                            completionHandler:^(NSURLResponse * _Nonnull response, id  _Nullable responseObject, NSError * _Nullable error) {
+                                                                                if (error && failure) {
+                                                                                    failure(operation, error);
+                                                                                } else if (!error && success) {
+                                                                                    success(operation, responseObject);
+                                                                                }
+                                                                            }];
+    [operation resume];
     return operation;
 }
 
@@ -88,12 +96,18 @@
         return nil;
     }
 
-    AFHTTPRequestOperation *operation = [self HTTPRequestOperationWithRequest:request success:success failure:failure];
-
-    NSOperationQueue *actualOperationQueue = operationQueue ? operationQueue : self.operationQueue;
-
-    [actualOperationQueue addOperation:operation];
-
+    // MFZ DEV: 'HTTPRequestOperationWithRequest:' has been removed, now need to call the request directly.
+    __block AFHTTPRequestOperation * _Nonnull operation = (AFHTTPRequestOperation *)[super dataTaskWithRequest:request
+                                                                                                uploadProgress:nil
+                                                                                              downloadProgress:nil
+                                                                                             completionHandler:^(NSURLResponse * _Nonnull response, id  _Nullable responseObject, NSError * _Nullable error) {
+                                                                                                 if (error && failure) {
+                                                                                                     failure(operation, error);
+                                                                                                 } else if (!error && success) {
+                                                                                                     success(operation, responseObject);
+                                                                                                 }
+                                                                                             }];
+    [operation resume];
     return operation;
 }
 

@@ -6,7 +6,13 @@
 //  Copyright (c) 2014 Filepicker.io. All rights reserved.
 //
 
-#import "AFHTTPRequestOperationManager.h"
+#import "AFHTTPSessionManager.h"
+
+// MFZ DEV: alias new AFNetworking 3.2 types with the old names to minimise the number of code changes
+@interface AFHTTPRequestOperationManager: AFHTTPSessionManager;
+@end
+@interface AFHTTPRequestOperation: NSURLSessionTask;
+@end
 
 @interface FPAPIClient : AFHTTPRequestOperationManager
 
