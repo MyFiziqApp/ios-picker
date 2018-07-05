@@ -21,5 +21,5 @@ end
 target :'FPPickerMac' do
   platform :osx, '10.9'
   pod 'AFNetworking', '~> 3.2.1'
-  pod 'PureLayout', '~> 2.0.6'
+  pod 'PureLayout', '~> 3.0'
 end
