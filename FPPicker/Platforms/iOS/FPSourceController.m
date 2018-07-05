@@ -780,8 +780,9 @@ static const CGFloat ROW_HEIGHT = 44.0;
                                                                                                                  successOperationBlock(operation, responseObject);
                                                                                                              }
                                                                                                          }];
-    [self.contentLoadOperationQueue cancelAllOperations];
-    [self.contentLoadOperationQueue addOperation:operation];
+              [operation resume];
+    //[self.contentLoadOperationQueue cancelAllOperations];
+    //[self.contentLoadOperationQueue addOperation:operation];
 }
 
 - (void)fpLoadResponseSuccessAtPath:(NSString *)loadpath
@@ -933,7 +934,8 @@ static const CGFloat ROW_HEIGHT = 44.0;
                                                                                                             uploadProgress: nil
                                                                                                           downloadProgress: nil
                                                                                                          completionHandler:nil];
-    [self.contentPreloadOperationQueue addOperation:operation];
+    [operation resume];
+    //             [self.contentPreloadOperationQueue addOperation:operation];
 }
 
 - (void)fpLoadNextPage
@@ -1012,8 +1014,9 @@ static const CGFloat ROW_HEIGHT = 44.0;
                                                                                                                  successOperationBlock(operation, responseObject);
                                                                                                              }
                                                                                                          }];
+   [operation resume];
 
-    [self.contentPreloadOperationQueue addOperation:operation];
+   // [self.contentPreloadOperationQueue addOperation:operation];
 }
 
 - (void)clearSelection
@@ -1343,8 +1346,9 @@ static const CGFloat ROW_HEIGHT = 44.0;
                                                                                                                  successOperationBlock(operation, responseObject);
                                                                                                              }
                                                                                                          }];
+   [operation resume];
 
-    [self.contentPreloadOperationQueue addOperation:operation];
+   // [self.contentPreloadOperationQueue addOperation:operation];
 }
 
 - (CGRect)getViewBounds
