@@ -55,15 +55,16 @@
                                                                  success:successOperationBlock
                                                                  failure:failureOperationBlock];
 
-    [operation setUploadProgressBlock: ^(NSUInteger bytesWritten,
-                                         long long totalBytesWritten,
-                                         long long totalBytesExpectedToWrite) {
-        if (self.progressBlock &&
-            totalBytesExpectedToWrite > 0)
-        {
-            self.progressBlock(1.0f * totalBytesWritten / totalBytesExpectedToWrite);
-        }
-    }];
+//    [operation setUploadProgressBlock: ^(NSUInteger bytesWritten,
+//                                         long long totalBytesWritten,
+//                                         long long totalBytesExpectedToWrite) {
+//        if (self.progressBlock &&
+//            totalBytesExpectedToWrite > 0)
+//        {
+//            self.progressBlock(1.0f * totalBytesWritten / totalBytesExpectedToWrite);
+//        }
+//    }];
+    [operation resume];
 }
 
 @end

@@ -230,17 +230,19 @@
                                                                  success:successOperationBlock
                                                                  failure:failureOperationBlock];
 
-    [operation setUploadProgressBlock: ^(NSUInteger bytesWritten,
-                                         long long totalBytesWritten,
-                                         long long totalBytesExpectedToWrite) {
-        if (totalBytesExpectedToWrite > 0)
-        {
-            float progress = (1.0f * totalBytesWritten) / totalBytesExpectedToWrite;
-
-            [self updateProgressAtIndex:self.progressIndex + index
-                              withValue:progress];
-        }
-    }];
+    // MFZ Dev Team: Commented as not currently needed.
+//    [operation setUploadProgressBlock: ^(NSUInteger bytesWritten,
+//                                         long long totalBytesWritten,
+//                                         long long totalBytesExpectedToWrite) {
+//        if (totalBytesExpectedToWrite > 0)
+//        {
+//            float progress = (1.0f * totalBytesWritten) / totalBytesExpectedToWrite;
+//
+//            [self updateProgressAtIndex:self.progressIndex + index
+//                              withValue:progress];
+//        }
+//    }];
+    [operation resume];
 }
 
 - (void)endMultipartUploadWithRetries:(int)retries

@@ -413,13 +413,17 @@ typedef void (^FPSimpleAPIPostAuthenticationActionBlock)();
         }
     };
 
-    AFHTTPRequestOperation *operation;
-
-    operation = [[FPAPIClient sharedClient] HTTPRequestOperationWithRequest:request
-                                                                    success:successOperationBlock
-                                                                    failure:failureOperationBlock];
-
-    [self.operationQueue addOperation:operation];
+    __block AFHTTPRequestOperation * operation = (AFHTTPRequestOperation *)[[FPAPIClient sharedClient] dataTaskWithRequest: request
+                                                                                                            uploadProgress: nil
+                                                                                                          downloadProgress: nil
+                                                                                                         completionHandler:^(NSURLResponse * _Nonnull response, id  _Nullable responseObject, NSError * _Nullable error) {
+                                                                                                             if (error) {
+                                                                                                                 failureOperationBlock(operation, error);
+                                                                                                             } else if (!error) {
+                                                                                                                 successOperationBlock(operation, responseObject);
+                                                                                                             }
+                                                                                                         }];
+    [operation resume];
 }
 
 - (void)recursiveGetMediaListAtPath:(NSString *)path partialResults:(NSMutableArray *)partialResults startPage:(NSUInteger)startPage completion:(FPSimpleAPIMediaListCompletionBlock)completion

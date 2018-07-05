@@ -40,7 +40,6 @@
 		45DD1BB4199B860E00937A5F /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 45DD1BB3199B860E00937A5F /* Cocoa.framework */; };
 		45DD1BBE199B860E00937A5F /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 45DD1BBC199B860E00937A5F /* InfoPlist.strings */; };
 		45F3BD9C199CD0A200E2BD91 /* FPTypedefs.h in Headers */ = {isa = PBXBuildFile; fileRef = 45F3BD9B199CD0A200E2BD91 /* FPTypedefs.h */; };
-		DF128064E9C54EF983266A81 /* libPods-FPPickerMac.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F7DED468B484484F9B53BE59 /* libPods-FPPickerMac.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -84,8 +83,6 @@
 		45DD1BC0199B860E00937A5F /* FPPicker_Mac.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FPPicker_Mac.h; sourceTree = "<group>"; };
 		45F3BD9A199CCF7900E2BD91 /* FPInternalHeaders.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FPInternalHeaders.h; sourceTree = "<group>"; };
 		45F3BD9B199CD0A200E2BD91 /* FPTypedefs.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FPTypedefs.h; sourceTree = "<group>"; };
-		ABD151E2C7184D0797898B8B /* Pods-FPPickerMac.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FPPickerMac.xcconfig"; path = "Pods/Pods-FPPickerMac.xcconfig"; sourceTree = "<group>"; };
-		F7DED468B484484F9B53BE59 /* libPods-FPPickerMac.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-FPPickerMac.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -94,7 +91,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				45DD1BB4199B860E00937A5F /* Cocoa.framework in Frameworks */,
-				DF128064E9C54EF983266A81 /* libPods-FPPickerMac.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -169,7 +165,6 @@
 				45DD1BB9199B860E00937A5F /* FPPicker Mac */,
 				45DD1BB2199B860E00937A5F /* Frameworks */,
 				45DD1BB1199B860E00937A5F /* Products */,
-				ABD151E2C7184D0797898B8B /* Pods-FPPickerMac.xcconfig */,
 			);
 			sourceTree = "<group>";
 		};
@@ -186,7 +181,6 @@
 			children = (
 				45DD1BB3199B860E00937A5F /* Cocoa.framework */,
 				45DD1BB5199B860E00937A5F /* Other Frameworks */,
-				F7DED468B484484F9B53BE59 /* libPods-FPPickerMac.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -259,12 +253,10 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 45DD1BD8199B860E00937A5F /* Build configuration list for PBXNativeTarget "FPPickerMac" */;
 			buildPhases = (
-				E258428433A049A183C7723C /* Check Pods Manifest.lock */,
 				45DD1BAB199B860E00937A5F /* Sources */,
 				45DD1BAC199B860E00937A5F /* Frameworks */,
 				45DD1BAD199B860E00937A5F /* Headers */,
 				45DD1BAE199B860E00937A5F /* Resources */,
-				5827FF3B0F2C4E01869EFA7E /* Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -311,39 +303,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
-
-/* Begin PBXShellScriptBuildPhase section */
-		5827FF3B0F2C4E01869EFA7E /* Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Pods-FPPickerMac-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		E258428433A049A183C7723C /* Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Check Pods Manifest.lock";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
-			showEnvVarsInLog = 0;
-		};
-/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		45DD1BAB199B860E00937A5F /* Sources */ = {
@@ -452,7 +411,6 @@
 		};
 		45DD1BD9199B860E00937A5F /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = ABD151E2C7184D0797898B8B /* Pods-FPPickerMac.xcconfig */;
 			buildSettings = {
 				COMBINE_HIDPI_IMAGES = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
@@ -468,7 +426,6 @@
 		};
 		45DD1BDA199B860E00937A5F /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = ABD151E2C7184D0797898B8B /* Pods-FPPickerMac.xcconfig */;
 			buildSettings = {
 				COMBINE_HIDPI_IMAGES = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;

@@ -151,9 +151,7 @@ static const CGFloat ROW_HEIGHT = 44.0;
     }
 }
 
-- (void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation
-{
-    [super didRotateFromInterfaceOrientation:fromInterfaceOrientation];
+- (void)viewWillTransitionToSize:(CGSize)size withTransitionCoordinator:(id<UIViewControllerTransitionCoordinator>)coordinator {
     [self setupLayoutConstants];
     [self.tableView reloadData];
 }
@@ -611,7 +609,7 @@ static const CGFloat ROW_HEIGHT = 44.0;
             NSInteger index = [self.contents indexOfObject:obj];
             UIImage *thumbnail = self.selectedObjectThumbnails[@(index)];
 
-            void (^markProgress)() = ^void () {
+            void (^markProgress)(void) = ^void () {
                 amtProcessed++;
 
                 if (amtProcessed >= totalCount)
@@ -772,14 +770,19 @@ static const CGFloat ROW_HEIGHT = 44.0;
         [self.refreshControl endRefreshing];
     };
 
-    AFHTTPRequestOperation *operation;
-
-    operation = [[FPAPIClient sharedClient] HTTPRequestOperationWithRequest:request
-                                                                    success:successOperationBlock
-                                                                    failure:failureOperationBlock];
-
-    [self.contentLoadOperationQueue cancelAllOperations];
-    [self.contentLoadOperationQueue addOperation:operation];
+    __block AFHTTPRequestOperation * operation = (AFHTTPRequestOperation *)[[FPAPIClient sharedClient] dataTaskWithRequest: request
+                                                                                                            uploadProgress: nil
+                                                                                                          downloadProgress: nil
+                                                                                                         completionHandler:^(NSURLResponse * _Nonnull response, id  _Nullable responseObject, NSError * _Nullable error) {
+                                                                                                             if (error) {
+                                                                                                                 failureOperationBlock(operation, error);
+                                                                                                             } else if (!error) {
+                                                                                                                 successOperationBlock(operation, responseObject);
+                                                                                                             }
+                                                                                                         }];
+              [operation resume];
+    //[self.contentLoadOperationQueue cancelAllOperations];
+    //[self.contentLoadOperationQueue addOperation:operation];
 }
 
 - (void)fpLoadResponseSuccessAtPath:(NSString *)loadpath
@@ -927,13 +930,12 @@ static const CGFloat ROW_HEIGHT = 44.0;
                                              andMimetypes:self.source.mimetypes
                                               cachePolicy:policy];
 
-    AFHTTPRequestOperation *operation;
-
-    operation = [[FPAPIClient sharedClient] HTTPRequestOperationWithRequest:request
-                                                                    success:nil
-                                                                    failure:nil];
-
-    [self.contentPreloadOperationQueue addOperation:operation];
+    __block AFHTTPRequestOperation * operation = (AFHTTPRequestOperation *)[[FPAPIClient sharedClient] dataTaskWithRequest: request
+                                                                                                            uploadProgress: nil
+                                                                                                          downloadProgress: nil
+                                                                                                         completionHandler:nil];
+    [operation resume];
+    //             [self.contentPreloadOperationQueue addOperation:operation];
 }
 
 - (void)fpLoadNextPage
@@ -1002,13 +1004,19 @@ static const CGFloat ROW_HEIGHT = 44.0;
         [self.nextPageSpinner stopAnimating];
     };
 
-    AFHTTPRequestOperation *operation;
+    __block AFHTTPRequestOperation * operation = (AFHTTPRequestOperation *)[[FPAPIClient sharedClient] dataTaskWithRequest: request
+                                                                                                            uploadProgress: nil
+                                                                                                          downloadProgress: nil
+                                                                                                         completionHandler:^(NSURLResponse * _Nonnull response, id  _Nullable responseObject, NSError * _Nullable error) {
+                                                                                                             if (error) {
+                                                                                                                 failureOperationBlock(operation, error);
+                                                                                                             } else if (!error) {
+                                                                                                                 successOperationBlock(operation, responseObject);
+                                                                                                             }
+                                                                                                         }];
+   [operation resume];
 
-    operation = [[FPAPIClient sharedClient] HTTPRequestOperationWithRequest:request
-                                                                    success:successOperationBlock
-                                                                    failure:failureOperationBlock];
-
-    [self.contentPreloadOperationQueue addOperation:operation];
+   // [self.contentPreloadOperationQueue addOperation:operation];
 }
 
 - (void)clearSelection
@@ -1328,13 +1336,19 @@ static const CGFloat ROW_HEIGHT = 44.0;
         }
     };
 
-    AFHTTPRequestOperation *operation;
+    __block AFHTTPRequestOperation * operation = (AFHTTPRequestOperation *)[[FPAPIClient sharedClient] dataTaskWithRequest: request
+                                                                                                            uploadProgress: nil
+                                                                                                          downloadProgress: nil
+                                                                                                         completionHandler:^(NSURLResponse * _Nonnull response, id  _Nullable responseObject, NSError * _Nullable error) {
+                                                                                                             if (error) {
+                                                                                                                 failureOperationBlock(operation, error);
+                                                                                                             } else if (!error) {
+                                                                                                                 successOperationBlock(operation, responseObject);
+                                                                                                             }
+                                                                                                         }];
+   [operation resume];
 
-    operation = [[FPAPIClient sharedClient] HTTPRequestOperationWithRequest:request
-                                                                    success:successOperationBlock
-                                                                    failure:failureOperationBlock];
-
-    [self.contentPreloadOperationQueue addOperation:operation];
+   // [self.contentPreloadOperationQueue addOperation:operation];
 }
 
 - (CGRect)getViewBounds

@@ -34,7 +34,7 @@
 
     AFRequestOperationSuccessBlock successOperationBlock = ^(AFHTTPRequestOperation *operation,
                                                              id responseObject) {
-        NSDictionary *headers = [operation.response allHeaderFields];
+        NSDictionary *headers = ((NSHTTPURLResponse *)operation.response).allHeaderFields;
         NSString *mimetype = headers[@"Content-Type"];
 
         if ([mimetype rangeOfString:@";"].location != NSNotFound)
@@ -66,25 +66,17 @@
         failure(error);
     };
 
-    AFHTTPRequestOperation *operation;
-
-    operation = [[FPAPIClient sharedClient] HTTPRequestOperationWithRequest:request
-                                                                    success:successOperationBlock
-                                                                    failure:failureOperationBlock];
-
-    operation.outputStream = [NSOutputStream outputStreamWithURL:tempURL
-                                                          append:NO];
-
-    [operation setDownloadProgressBlock: ^(NSUInteger bytesRead,
-                                           long long totalBytesRead,
-                                           long long totalBytesExpectedToRead) {
-        if (progress && totalBytesExpectedToRead > 0)
-        {
-            progress(1.0f * totalBytesRead / totalBytesExpectedToRead);
-        }
-    }];
-
-    [operationQueue addOperation:operation];
+    __block AFHTTPRequestOperation * operation = (AFHTTPRequestOperation *)[[FPAPIClient sharedClient] dataTaskWithRequest: request
+                                                                                  uploadProgress: nil
+                                                                                downloadProgress: nil
+                                                                               completionHandler:^(NSURLResponse * _Nonnull response, id  _Nullable responseObject, NSError * _Nullable error) {
+                                                                                   if (error && failure) {
+                                                                                       failureOperationBlock(operation, error);
+                                                                                   } else if (!error && success) {
+                                                                                       successOperationBlock(operation, responseObject);
+                                                                                   }
+                                                                               }];
+    [operation resume];
 }
 
 #pragma mark - Save As Methods
