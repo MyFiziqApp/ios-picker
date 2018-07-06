@@ -8,13 +8,13 @@ Pod::Spec.new do |s|
     This is an SDK that lets developers easily add a bunch of cloud file handling features without coding.
   DESC
 
-  s.homepage     = 'https://github.com/Ink/ios-picker/'
-  s.screenshots  = 'https://github.com/Ink/ios-picker/raw/develop/Docs/filepicker.png'
+  s.homepage     = 'https://github.com/MyFiziqApp/ios-picker/'
+  s.screenshots  = 'https://github.com/MyFiziqApp/ios-picker/raw/develop/Docs/filepicker.png'
   s.license      = { :type => 'MIT', :file => 'LICENSE.md' }
   s.author       = { 'Filepicker.io' => 'contact@filepicker.io' }
 
   s.source       = {
-    :git => 'https://github.com/Ink/ios-picker.git',
+    :git => 'hhttps://github.com/MyFiziqApp/ios-picker.git',
     :tag => "v#{s.version}"
   }
 
