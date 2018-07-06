@@ -55,7 +55,7 @@ Pod::Spec.new do |s|
   s.ios.frameworks   = 'AssetsLibrary', 'CoreFoundation', 'CoreGraphics', 'MobileCoreServices', 'QuartzCore', 'SystemConfiguration'
   s.osx.frameworks   = 'WebKit', 'Quartz'
 
-  s.dependency 'AFNetworking', '~> ~> 3.2'
+  s.dependency 'AFNetworking', '~> 3.2'
   s.ios.dependency 'MBProgressHUD', '~> 1.1'
   s.osx.dependency 'PureLayout', '~> 3.0'
 
