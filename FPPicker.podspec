@@ -14,15 +14,15 @@ Pod::Spec.new do |s|
   s.author       = { 'Filepicker.io' => 'contact@filepicker.io' }
 
   s.source       = {
-    :git => 'hhttps://github.com/MyFiziqApp/ios-picker.git',
-    :tag => "v#{s.version}"
+    :git => 'https://github.com/MyFiziqApp/ios-picker.git',
+    :branch => "develop"
   }
 
   s.ios.deployment_target = '8.0'
-  s.osx.deployment_target = '10.9'
+  # s.osx.deployment_target = '10.9'
 
   s.ios.prefix_header_file  = 'Resources-iOS/FPPicker-Prefix.pch'
-  s.osx.prefix_header_file  = 'Resources-Mac/FPPicker-Mac-Prefix.pch'
+  # s.osx.prefix_header_file  = 'Resources-Mac/FPPicker-Mac-Prefix.pch'
 
   shared_public_header_files = %w(
     FPPicker/Shared/FPExternalHeaders.h
@@ -42,25 +42,25 @@ Pod::Spec.new do |s|
     FPPicker/Platforms/iOS/FPAuthController.h
   ).concat(shared_public_header_files)
 
-  s.osx.public_header_files = %w(
-    FPPicker/Platforms/Mac/FPPickerMac.h
-    FPPicker/Platforms/Mac/FPPickerController.h
-    FPPicker/Platforms/Mac/FPSaveController.h
-    FPPicker/Platforms/Mac/FPAuthController.h
-  ).concat(shared_public_header_files)
+  # s.osx.public_header_files = %w(
+  #   FPPicker/Platforms/Mac/FPPickerMac.h
+  #   FPPicker/Platforms/Mac/FPPickerController.h
+  #   FPPicker/Platforms/Mac/FPSaveController.h
+  #   FPPicker/Platforms/Mac/FPAuthController.h
+  # ).concat(shared_public_header_files)
 
   s.ios.source_files = 'FPPicker/Shared/*.{h,m}', 'FPPicker/Platforms/iOS/*.{h,m}'
-  s.osx.source_files = 'FPPicker/Shared/*.{h,m}', 'FPPicker/Platforms/Mac/*.{h,m}'
+  # s.osx.source_files = 'FPPicker/Shared/*.{h,m}', 'FPPicker/Platforms/Mac/*.{h,m}'
 
   s.ios.frameworks   = 'AssetsLibrary', 'CoreFoundation', 'CoreGraphics', 'MobileCoreServices', 'QuartzCore', 'SystemConfiguration'
-  s.osx.frameworks   = 'WebKit', 'Quartz'
+  # s.osx.frameworks   = 'WebKit', 'Quartz'
 
   s.dependency 'AFNetworking', '~> 3.2'
   s.ios.dependency 'MBProgressHUD', '~> 1.1'
-  s.osx.dependency 'PureLayout', '~> 3.0'
+  # s.osx.dependency 'PureLayout', '~> 3.0'
 
   s.requires_arc = true
 
   s.ios.resource_bundle = { 'FPPicker' => 'Resources-Shared/*.*' }
-  s.osx.resource_bundle = { 'FPPicker' => 'Resources-Shared/*.*', 'FPPickerMac' => 'Resources-Mac/*.*' }
+  # s.osx.resource_bundle = { 'FPPicker' => 'Resources-Shared/*.*', 'FPPickerMac' => 'Resources-Mac/*.*' }
 end
